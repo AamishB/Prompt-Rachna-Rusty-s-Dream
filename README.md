@@ -12,10 +12,6 @@ Welcome to **Rusty's Dream**, a storytelling website where imagination comes to 
 
 - User-Friendly Interface: Clean and intuitive design for seamless navigation.
 
-## Rusty's Dream
-
-Welcome to Rusty's Dream, a storytelling website where imagination comes to life! Our platform is designed to captivate users with immersive narratives, interactive stories, and a user-friendly experience.
-
 ## Getting Started
 
 To explore Rusty's Dream locally , follow these steps:
