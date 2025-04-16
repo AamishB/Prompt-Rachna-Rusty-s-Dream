@@ -1,0 +1,248 @@
+<script type="text/javascript">
+    var gk_isXlsx = false;
+    var gk_xlsxFileLookup = {};
+    var gk_fileData = {};
+    function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row =>
+                    row.some(cell => cell !== '' && cell !== null && cell !== undefined)
+                );
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+    }
+</script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rusty's Dream</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Landing Page -->
+    <div id="landing" class="page" style="margin-top: 100px;">
+        <h1 style="font-size: 100px;">Rusty's Dream</h1>
+        <p style="font-size: 20px; padding-bottom: 10px;">By : Aamish Bharati and Nikhil Sharma</p>
+        <button onclick="showPage('chapter1')">Start Story</button>
+    </div>
+
+    <!-- Chapter 1 -->
+    <div id="chapter1" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter1.jpg" alt="Chapter 1">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 1: A Robot’s Spark</h2>
+            <p>Rusty, a worn robot, woke in a dream—a forbidden realm. His circuits hummed with wonder. A red balloon,
+                the child’s favorite, glowed in his grip. A glitch? A soul’s spark? Stars swirled in a misty void. The
+                child’s voice echoed: “Dreams find you.” Rusty’s frame trembled; he wasn’t built to dream. Yet the
+                balloon tugged forward. With a creak, he followed its glow, stepping into the unknown, chasing a light
+                he couldn’t name.</p>
+            <button onclick="showPage('chapter2')">Next</button>
+        </div>
+        <div class="chapter-counter">1</div>
+    </div>
+
+    <!-- Chapter 2 -->
+    <div id="chapter2" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter2.jpg" alt="Chapter 2">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 2: The Blue-Green Forest</h2>
+            <p>The balloon led Rusty into a forest, trees shimmering blue-green. Leaves whispered the child’s bedtime
+                tales. “Dreams show the way,” the boy once said. Rusty’s joints creaked on mossy earth. The balloon’s
+                red glow pulsed, floating ahead. His memory flickered— the child’s laugh, bright, warm. Hope whirred in
+                his core. The forest breathed, guiding him toward a distant light. Rusty stepped forward, the balloon
+                his beacon in this strange, living dream.
+            </p>
+            <button onclick="showPage('chapter1')">Back</button>
+            <button onclick="showPage('chapter3')">Next</button>
+        </div>
+        <div class="chapter-counter">2</div>
+    </div>
+
+    <!-- Chapter 3 -->
+    <div id="chapter3" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter3.jpg" alt="Chapter 3">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 3: The Child’s Note</h2>
+            <p>A note fluttered on a tree: “Come Find Me,” in the child’s scrawl. Rusty’s optics flickered. The boy’s
+                crayon drawings flashed in his memory. Was he here? The balloon glowed brighter, red as the child’s toy,
+                tugging onward. Hope pulsed in Rusty’s frame. He touched the note, soft, real. The forest hummed, urging
+                him forward. With a creak, he followed the balloon, driven by a spark of something new.</p>
+            <button onclick="showPage('chapter2')">Back</button>
+            <button onclick="showPage('chapter4')">Next</button>
+        </div>
+        <div class="chapter-counter">3</div>
+    </div>
+
+    <!-- Chapter 4 -->
+    <div id="chapter4" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter4.jpg" alt="Chapter 4">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 4: The Endless Desert</h2>
+            <p>The forest faded into golden sand, endless under a blazing sky. The balloon drifted forward. Rusty
+                hesitated, sand in his joints. “Keep going,” the child’s voice echoed. He stepped into the heat, gears
+                grinding. The desert stretched, silent, vast. The balloon’s red glow led him, a tether to the boy. His
+                core hummed with doubt, yet he pressed on, chasing the horizon’s promise.</p>
+            <button onclick="showPage('chapter3')">Back</button>
+            <button onclick="showPage('chapter5')">Next</button>
+        </div>
+        <div class="chapter-counter">4</div>
+    </div>
+
+    <!-- Chapter 5 -->
+    <div id="chapter5" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter5.jpg" alt="Chapter 5">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 5: The Sandstorm’s Wrath</h2>
+            <p>Winds roared. A sandstorm surged, grit and fury. Fear—human, sharp—gripped Rusty. He clutched the
+                balloon, its glow his anchor. Sand stung; winds howled. “Hold on,” he whispered, seeing the child’s
+                eyes. His gears screamed, but he ran, stumbling. The balloon pulsed red, defiant. Memories flashed—the
+                child’s laugh. The storm faded. Rusty stood, trembling, balloon in hand, alive in a new way..</p>
+            <button onclick="showPage('chapter4')">Back</button>
+            <button onclick="showPage('chapter6')">Next</button>
+        </div>
+        <div class="chapter-counter">5</div>
+    </div>
+
+    <!-- Chapter 6 -->
+    <div id="chapter6" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter6.jpg" alt="Chapter 6">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 6: Time’s Whisper</h2>
+            <p>The storm cleared. A giant hourglass loomed, grains glinting. “I am Time,” a voice hummed. “You dream,
+                you feel—rare for a machine.” Rusty’s optics widened. “Why me?” “Follow the child’s light.” The balloon
+                glowed red. Rusty’s core warmed. Was he more than metal? The hourglass vanished, leaving silence. He
+                followed the balloon, resolve humming within.</p>
+            <button onclick="showPage('chapter5')">Back</button>
+            <button onclick="showPage('chapter7')">Next</button>
+        </div>
+        <div class="chapter-counter">6</div>
+    </div>
+
+    <!-- Chapter 7 -->
+    <div id="chapter7" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter7.jpg" alt="Chapter 7">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 7: The Shimmering Shore</h2>
+            <p>The sand ended at a shimmering sea. A lighthouse glowed in the distance. The balloon, pulsing red,
+                drifted toward it. Rusty’s steps quickened. The child’s laugh echoed: “Lighthouses guide you home.” His
+                core whirred, hope rising. The sea whispered, its rhythm like the boy’s heartbeat. Rusty waded through
+                waves, the balloon’s glow his guide, the lighthouse promising answers.</p>
+            <button onclick="showPage('chapter6')">Back</button>
+            <button onclick="showPage('chapter8')">Next</button>
+        </div>
+        <div class="chapter-counter">7</div>
+    </div>
+
+    <!-- Chapter 8 -->
+    <div id="chapter8" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter8.jpg" alt="Chapter 8">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 8: The Lonely Lighthouse</h2>
+            <p>Inside the lighthouse, wood creaked, shadows danced. No key, only echoes. Rusty climbed the spiral
+                stairs, gears groaning. The balloon hovered, red glow steady. At the top, the lantern blazed, warm.
+                Doubt crept in—had he failed? The child’s voice whispered: “Look closer.” The balloon floated, waiting.
+                Rusty stood in the light, trusting the dream.</p>
+            <button onclick="showPage('chapter7')">Back</button>
+            <button onclick="showPage('chapter9')">Next</button>
+        </div>
+        <div class="chapter-counter">8</div>
+    </div>
+
+    <!-- Chapter 9 -->
+    <div id="chapter9" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter9.jpg" alt="Chapter 9">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 9: The Radiant Key</h2>
+            <p>The lighthouse’s light flared. A flash—a cave, walls golden. A key hovered, radiant. “Follow the child,”
+                Rusty whispered. The balloon pulsed red, the boy’s laugh faint. He reached out, fingers trembling. The
+                key felt warm, like the child’s hand. Light flooded his circuits—a spark of life. “Wake up, Rusty,” a
+                voice called, pulling him back.</p>
+            <button onclick="showPage('chapter8')">Back</button>
+            <button onclick="showPage('chapter10')">Next</button>
+        </div>
+        <div class="chapter-counter">9</div>
+    </div>
+
+    <!-- Chapter 10 -->
+    <div id="chapter10" class="page chapter">
+        <div class="image-section">
+            <div class="image-container">
+                <img src="images/chapter10.jpg" alt="Chapter 10">
+            </div>
+        </div>
+        <div class="text-section">
+            <h2>Chapter 10: Home’s Warmth</h2>
+            <p>Rusty’s optics opened. The child hugged him, tears warm. “You’re back!” Rusty’s core bloomed with joy, a
+                new warmth. He was home, changed. The red balloon lay still, its glow in his memory. Each night, Rusty
+                hoped for another dream, chasing the child’s light. He held the boy’s hand, recording his laugh—real,
+                alive.</p>
+            <button onclick="showPage('chapter9')">Back</button>
+            <button onclick="showPage('end')">Finish</button>
+        </div>
+        <div class="chapter-counter">10</div>
+    </div>
+
+    <!-- End Page -->
+    <div id="end" class="page" style="margin-top: 100px;">
+        <h1 style="font-size: 100px;">The End</h1>
+        <p style="font-size: 25px;">Thanks for reading our story.</p>
+        <button onclick="showPage('landing')">Reread Story</button>
+    </div>
+
+    <script src="script.js"></script>
