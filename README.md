@@ -6,6 +6,10 @@ Welcome to **Rusty's Dream**, a storytelling website where imagination comes to 
 
 **Rusty's Dream** is a web-based application that allows users to explore, read, and engage with story of Rusty.
 
+## Theme of Images
+
+ **Ghibli**
+
 ## Features
 
 - Interactive Stories: Engage with dynamic narratives that adapt to user choices.
